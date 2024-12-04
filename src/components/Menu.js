@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import BuildIcon from "@mui/icons-material/Build";
 import GroupIcon from "@mui/icons-material/Group"; // パーティー管理のアイコンを追加
 
 const Menu = ({ open, toggleMenu }) => {
