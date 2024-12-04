@@ -8,17 +8,14 @@ import {
   TableRow,
   TextField,
   TableHead,
-  MenuItem,
-  Select,
 } from "@mui/material";
-import weapon from "../jsons/accessory.json";
+import weapon from "../jsons/armor.json";
 
-const AccessoryPage = () => {
+const ArmorPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [effectTerm, setEffectTerm] = useState("");
   const [elementFilters, setElementFilters] = useState([]);
   const [roleFilters, setRoleFilters] = useState([]);
-  const [spdFilter, setSpdFilter] = useState("");
   const [filteredWeapons, setFilteredWeapons] = useState(weapon);
 
   useEffect(() => {
@@ -28,11 +25,10 @@ const AccessoryPage = () => {
           w.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
           w.effect.toLowerCase().includes(effectTerm.toLowerCase()) &&
           (elementFilters.length === 0 || elementFilters.includes(w.element)) &&
-          (roleFilters.length === 0 || roleFilters.includes(w.role)) &&
-          (spdFilter === "" || w.spd == parseInt(spdFilter))
+          (roleFilters.length === 0 || roleFilters.includes(w.role))
       )
     );
-  }, [searchTerm, effectTerm, elementFilters, roleFilters, spdFilter]);
+  }, [searchTerm, effectTerm, elementFilters, roleFilters]);
 
   const toggleElementFilter = (element) => {
     setElementFilters((prev) =>
@@ -67,21 +63,6 @@ const AccessoryPage = () => {
           value={effectTerm}
           onChange={(e) => setEffectTerm(e.target.value)}
         />
-      </Box>
-      <Box my={4}>
-        <Select
-          value={spdFilter}
-          onChange={(e) => setSpdFilter(e.target.value)}
-          displayEmpty
-          fullWidth
-        >
-          <MenuItem value="">速度でフィルタ</MenuItem>
-          {[...Array(12).keys()].map((i) => (
-            <MenuItem key={i + 1} value={i + 1}>
-              {i + 1}
-            </MenuItem>
-          ))}
-        </Select>
       </Box>
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 2 }}>
         <img
@@ -221,8 +202,8 @@ const AccessoryPage = () => {
         <TableHead>
           <TableRow>
             <TableCell>名前</TableCell>
-            <TableCell>HP</TableCell>
-            <TableCell>速度</TableCell>
+            <TableCell>物防</TableCell>
+            <TableCell>魔防</TableCell>
             <TableCell>効果</TableCell>
             <TableCell>属性</TableCell>
             <TableCell>ロール</TableCell>
@@ -233,8 +214,8 @@ const AccessoryPage = () => {
           {filteredWeapons.map((w) => (
             <TableRow key={w.no}>
               <TableCell>{w.name}</TableCell>
-              <TableCell>{w.hp}</TableCell>
-              <TableCell>{w.spd}</TableCell>
+              <TableCell>{w.def}</TableCell>
+              <TableCell>{w.mdef}</TableCell>
               <TableCell>{w.effect}</TableCell>
               <TableCell>{w.element}</TableCell>
               <TableCell>{w.role}</TableCell>
@@ -247,4 +228,4 @@ const AccessoryPage = () => {
   );
 };
 
-export default AccessoryPage;
+export default ArmorPage;

@@ -40,6 +40,41 @@ const Menu = ({ open, toggleMenu }) => {
           </ListItemIcon>
           <ListItemText primary="装飾品管理" />
         </ListItem> */}
+        <ListItem button component={Link} to="/weapons" onClick={toggleMenu}>
+          <ListItemIcon>
+            <img
+              src={"../img/武器.png"}
+              alt="武器"
+              style={{ width: 24, height: 24 }}
+            />
+          </ListItemIcon>
+          <ListItemText primary="武器一覧" />
+        </ListItem>
+        <ListItem button component={Link} to="/armors" onClick={toggleMenu}>
+          <ListItemIcon>
+            <img
+              src={"../img/防具.png"}
+              alt="防具"
+              style={{ width: 24, height: 24 }}
+            />
+          </ListItemIcon>
+          <ListItemText primary="防具一覧" />
+        </ListItem>
+        <ListItem
+          button
+          component={Link}
+          to="/accessories"
+          onClick={toggleMenu}
+        >
+          <ListItemIcon>
+            <img
+              src={"../img/装飾品.png"}
+              alt="装飾品"
+              style={{ width: 24, height: 24 }}
+            />
+          </ListItemIcon>
+          <ListItemText primary="装飾品一覧" />
+        </ListItem>
         <ListItem
           button
           component={Link}
