@@ -28,6 +28,7 @@ const TopPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [effectSearchText, setEffectSearchText] = useState("");
+  const [giftSearchText, setGiftSearchText] = useState("");
   const [filters, setFilters] = useState({
     role: [],
     element: [],
@@ -105,7 +106,8 @@ const TopPage = () => {
       searchText,
       filters,
       sortOrder,
-      effectSearchText
+      effectSearchText,
+      giftSearchText
     );
     // eslint-disable-next-line
   }, []);
@@ -124,7 +126,8 @@ const TopPage = () => {
       searchText,
       filters,
       sortOrder,
-      effectSearchText
+      effectSearchText,
+      giftSearchText
     );
   };
 
@@ -142,7 +145,8 @@ const TopPage = () => {
       searchText,
       filters,
       sortOrder,
-      effectSearchText
+      effectSearchText,
+      giftSearchText
     );
   };
 
@@ -159,13 +163,40 @@ const TopPage = () => {
   const handleSearchChange = (event) => {
     const text = event.target.value;
     setSearchText(text);
-    filterCharacters(characters, text, filters, sortOrder, effectSearchText);
+    filterCharacters(
+      characters,
+      text,
+      filters,
+      sortOrder,
+      effectSearchText,
+      giftSearchText
+    );
   };
 
   const handleEffectSearchChange = (event) => {
     const text = event.target.value;
     setEffectSearchText(text);
-    filterCharacters(characters, searchText, filters, sortOrder, text);
+    filterCharacters(
+      characters,
+      searchText,
+      filters,
+      sortOrder,
+      text,
+      giftSearchText
+    );
+  };
+
+  const handleGiftSearchChange = (event) => {
+    const text = event.target.value;
+    setGiftSearchText(text);
+    filterCharacters(
+      characters,
+      searchText,
+      filters,
+      sortOrder,
+      effectSearchText,
+      text
+    );
   };
 
   const toggleFilter = (filterType, value) => {
@@ -183,7 +214,8 @@ const TopPage = () => {
       searchText,
       newFilters,
       sortOrder,
-      effectSearchText
+      effectSearchText,
+      giftSearchText
     );
   };
 
@@ -201,7 +233,8 @@ const TopPage = () => {
       searchText,
       newFilters,
       sortOrder,
-      effectSearchText
+      effectSearchText,
+      giftSearchText
     );
   };
 
@@ -210,7 +243,8 @@ const TopPage = () => {
     nameText,
     filters,
     sortOrder,
-    effectText
+    effectText,
+    giftText
   ) => {
     let filtered = characters;
     if (nameText) {
@@ -240,6 +274,14 @@ const TopPage = () => {
           character.skill_burst_effect.includes(effectText)
       );
     }
+    if (giftText) {
+      filtered = filtered.filter(
+        (character) =>
+          character.gift_1.includes(giftText) ||
+          character.gift_2.includes(giftText) ||
+          character.gift_3.includes(giftText)
+      );
+    }
     if (sortOrder === "name") {
       filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
     } else {
@@ -250,7 +292,14 @@ const TopPage = () => {
 
   const handleSort = (order) => {
     setSortOrder(order);
-    filterCharacters(characters, searchText, filters, order, effectSearchText);
+    filterCharacters(
+      characters,
+      searchText,
+      filters,
+      order,
+      effectSearchText,
+      giftSearchText
+    );
   };
 
   const handleScreenshot = () => {
@@ -317,6 +366,14 @@ const TopPage = () => {
         margin="normal"
         value={effectSearchText}
         onChange={handleEffectSearchChange}
+      />
+      <TextField
+        label="ギフト検索"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        value={giftSearchText}
+        onChange={handleGiftSearchChange}
       />
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 2 }}>
         {renderFilterButtons("role", [
@@ -484,39 +541,39 @@ const TopPage = () => {
               <Table>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Name</TableCell>
+                    <TableCell>名前</TableCell>
                     <TableCell>{selectedCharacter.name}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Sub Name</TableCell>
+                    <TableCell>サブネーム</TableCell>
                     <TableCell>{selectedCharacter.sub_name}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Role</TableCell>
+                    <TableCell>役割</TableCell>
                     <TableCell>{selectedCharacter.role}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Element</TableCell>
+                    <TableCell>属性</TableCell>
                     <TableCell>{selectedCharacter.element}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Gift 1</TableCell>
+                    <TableCell>ギフト1</TableCell>
                     <TableCell>{selectedCharacter.gift_1}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Gift 2</TableCell>
+                    <TableCell>ギフト2</TableCell>
                     <TableCell>{selectedCharacter.gift_2}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Gift 3</TableCell>
+                    <TableCell>ギフト3</TableCell>
                     <TableCell>{selectedCharacter.gift_3}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Gift Left</TableCell>
+                    <TableCell>ギフト左</TableCell>
                     <TableCell>{selectedCharacter.gift_left}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Gift Right</TableCell>
+                    <TableCell>ギフト右</TableCell>
                     <TableCell>{selectedCharacter.gift_right}</TableCell>
                   </TableRow>
                   <TableRow>
@@ -544,115 +601,115 @@ const TopPage = () => {
                     <TableCell>{selectedCharacter.mdef}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 1</TableCell>
+                    <TableCell>スキル1</TableCell>
                     <TableCell>{selectedCharacter.skill_1}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 1 Element</TableCell>
+                    <TableCell>スキル1属性</TableCell>
                     <TableCell>{selectedCharacter.skill_1_element}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 1 Damage</TableCell>
+                    <TableCell>スキル1ダメージ</TableCell>
                     <TableCell>{selectedCharacter.skill_1_damage}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 1 Break</TableCell>
+                    <TableCell>スキル1ブレイク</TableCell>
                     <TableCell>{selectedCharacter.skill_1_break}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 1 Heal</TableCell>
+                    <TableCell>スキル1ヒール</TableCell>
                     <TableCell>{selectedCharacter.skill_1_heal}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 1 Weight</TableCell>
+                    <TableCell>スキル1ウェイト</TableCell>
                     <TableCell>{selectedCharacter.skill_1_weight}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 1 Effect</TableCell>
+                    <TableCell>スキル1効果</TableCell>
                     <TableCell>{selectedCharacter.skill_1_effect}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 2</TableCell>
+                    <TableCell>スキル2</TableCell>
                     <TableCell>{selectedCharacter.skill_2}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 2 Element</TableCell>
+                    <TableCell>スキル2属性</TableCell>
                     <TableCell>{selectedCharacter.skill_2_element}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 2 Damage</TableCell>
+                    <TableCell>スキル2ダメージ</TableCell>
                     <TableCell>{selectedCharacter.skill_2_damage}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 2 Break</TableCell>
+                    <TableCell>スキル2ブレイク</TableCell>
                     <TableCell>{selectedCharacter.skill_2_break}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 2 Heal</TableCell>
+                    <TableCell>スキル2ヒール</TableCell>
                     <TableCell>{selectedCharacter.skill_2_heal}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 2 Weight</TableCell>
+                    <TableCell>スキル2ウェイト</TableCell>
                     <TableCell>{selectedCharacter.skill_2_weight}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill 2 Effect</TableCell>
+                    <TableCell>スキル2効果</TableCell>
                     <TableCell>{selectedCharacter.skill_2_effect}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill Burst</TableCell>
+                    <TableCell>バーストスキル</TableCell>
                     <TableCell>{selectedCharacter.skill_burst}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill Burst Element</TableCell>
+                    <TableCell>バーストスキル属性</TableCell>
                     <TableCell>
                       {selectedCharacter.skill_burst_element}
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill Burst Damage</TableCell>
+                    <TableCell>バーストスキルダメージ</TableCell>
                     <TableCell>
                       {selectedCharacter.skill_burst_damage}
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill Burst Break</TableCell>
+                    <TableCell>バーストスキルブレイク</TableCell>
                     <TableCell>{selectedCharacter.skill_burst_break}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill Burst Heal</TableCell>
+                    <TableCell>バーストスキルヒール</TableCell>
                     <TableCell>{selectedCharacter.skill_burst_heal}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill Burst Weight</TableCell>
+                    <TableCell>バーストスキルウェイト</TableCell>
                     <TableCell>
                       {selectedCharacter.skill_burst_weight}
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Skill Burst Effect</TableCell>
+                    <TableCell>バーストスキル効果</TableCell>
                     <TableCell>
                       {selectedCharacter.skill_burst_effect}
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Abillity 1</TableCell>
+                    <TableCell>アビリティ1</TableCell>
                     <TableCell>{selectedCharacter.abillity_1}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Abillity 2</TableCell>
+                    <TableCell>アビリティ2</TableCell>
                     <TableCell>{selectedCharacter.abillity_2}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Leader Skill</TableCell>
+                    <TableCell>リーダースキル</TableCell>
                     <TableCell>{selectedCharacter.leader_skill}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Tag</TableCell>
+                    <TableCell>タグ</TableCell>
                     <TableCell>{selectedCharacter.tag}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Date</TableCell>
+                    <TableCell>日付</TableCell>
                     <TableCell>{selectedCharacter.date}</TableCell>
                   </TableRow>
                 </TableBody>
