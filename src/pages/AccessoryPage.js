@@ -29,7 +29,7 @@ const AccessoryPage = () => {
           w.effect.toLowerCase().includes(effectTerm.toLowerCase()) &&
           (elementFilters.length === 0 || elementFilters.includes(w.element)) &&
           (roleFilters.length === 0 || roleFilters.includes(w.role)) &&
-          (spdFilter === "" || w.spd == parseInt(spdFilter))
+          (spdFilter === "" || Number(w.spd) === spdFilter)
       )
     );
   }, [searchTerm, effectTerm, elementFilters, roleFilters, spdFilter]);
