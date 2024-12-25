@@ -47,7 +47,7 @@ const Menu = ({ open, toggleMenu }) => {
           </ListItemIcon>
           <ListItemText primary="メモリア管理" />
         </ListItem>
-        <ListItem button component={Link} to="/memorias" onClick={toggleMenu}>
+        <ListItem button component={Link} to="/weapons" onClick={toggleMenu}>
           <ListItemIcon>
             <img
               src={"../img/武器.png"}
