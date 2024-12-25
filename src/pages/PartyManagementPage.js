@@ -19,7 +19,7 @@ import {
   TableCell,
   TableRow,
 } from "@mui/material";
-import charadata from "../jsons/charadata.json";
+import charadata from "../jsons/characters.json";
 import Image from "../components/Image";
 import ArticleIcon from "@mui/icons-material/Article";
 import CloseIcon from "@mui/icons-material/Close";

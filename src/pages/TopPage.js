@@ -18,7 +18,7 @@ import ArticleIcon from "@mui/icons-material/Article";
 import CloseIcon from "@mui/icons-material/Close";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { toPng } from "html-to-image";
-import charadata from "../jsons/charadata.json";
+import charadata from "../jsons/characters.json";
 import Image from "../components/Image";
 
 const TopPage = () => {

@@ -11,7 +11,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import GroupIcon from "@mui/icons-material/Group"; // パーティー管理のアイコンを追加
+import GroupIcon from "@mui/icons-material/Group";
+import SellIcon from "@mui/icons-material/Sell";
 
 const Menu = ({ open, toggleMenu }) => {
   return (
@@ -40,7 +41,13 @@ const Menu = ({ open, toggleMenu }) => {
           </ListItemIcon>
           <ListItemText primary="装飾品管理" />
         </ListItem> */}
-        <ListItem button component={Link} to="/weapons" onClick={toggleMenu}>
+        <ListItem button component={Link} to="/memorias" onClick={toggleMenu}>
+          <ListItemIcon>
+            <SellIcon />
+          </ListItemIcon>
+          <ListItemText primary="メモリア管理" />
+        </ListItem>
+        <ListItem button component={Link} to="/memorias" onClick={toggleMenu}>
           <ListItemIcon>
             <img
               src={"../img/武器.png"}

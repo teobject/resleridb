@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TopPage from "./pages/TopPage";
+import MemoriaPage from "./pages/MemoriaPage";
 import AccessoryPage from "./pages/AccessoryPage";
 import WeaponPage from "./pages/WeaponPage";
 import ArmorPage from "./pages/ArmorPage";
@@ -55,6 +56,7 @@ const App = () => {
         <Header />
         <Switch>
           <Route path="/" exact component={TopPage} />
+          <Route path="/memorias" component={MemoriaPage} />
           <Route path="/weapons" component={WeaponPage} />
           <Route path="/armors" component={ArmorPage} />
           <Route path="/accessories" component={AccessoryPage} />
